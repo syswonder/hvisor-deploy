@@ -64,5 +64,6 @@ QEMU_ARGS += -netdev type=user,id=net3
 QEMU_ARGS += -device virtio-net-pci,netdev=net3,disable-legacy=on,disable-modern=off,iommu_platform=on
 
 HVISOR_RUNCMD := $(QEMU) $(QEMU_ARGS)
+HVISOR_GDBCMD := $(HVISOR_RUNCMD) -s -S
 
 FS_FILE_LIST  := $(zone1_kernel) $(zone1_dtb) $(zone1_config)

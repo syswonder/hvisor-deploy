@@ -36,8 +36,14 @@ all: hvisor tool images
 run: all
 	$(HVISOR_RUNCMD)
 
-update:
-	git submodule update --init --recursive
+gdb: all
+	$(HVISOR_GDBCMD)
+
+monitor:
+	$(MAKE) -C hvisor monitor
+
+test: hvisor
+	$(MAKE) -C hvisor test
 
 hvisor:
 	@current_branch="$(shell cd hvisor && git branch --show-current 2>/dev/null)"; \
@@ -57,7 +63,7 @@ clean:
 
 images: hvisor hvisor-tool filesystem
 
-filesystem: copy-hvisor-bin
+filesystem: copy-hvisor-bin dtb
 	@if ! [ -f $(FSIMG1) ]; then \
 		echo "$(FSIMG1) does not exist, please check the file path or create the file system image first."; \
 	fi && \
@@ -74,3 +80,12 @@ filesystem: copy-hvisor-bin
 
 copy-hvisor-bin: hvisor
 	cp hvisor/hvisor.bin $(IMG_DIR)/hvisor.bin
+
+DTS_FILES := $(wildcard $(PLAT_DIR)/dts/*.dts)
+DTB_FILES := $(patsubst %.dts,%.dtb,$(DTS_FILES))
+DTC := dtc
+
+dtb: $(DTB_FILES)
+
+%.dtb: %.dts
+	$(DTC) -I dts -O dtb -o $@ $<
