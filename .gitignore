@@ -1,0 +1,4 @@
+/images/
+*.dtb
+/hvisor/
+/hvisor-tool/
