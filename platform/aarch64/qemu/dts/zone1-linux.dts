@@ -99,11 +99,11 @@
 	// };
 
 	// virtio serial
-	virtio_mmio@a003a00 {
+	virtio_mmio@a003800 {
 		dma-coherent;
 		interrupt-parent = <0x01>;
 		interrupts = <0x0 0x2c 0x1>;
-		reg = <0x0 0xa003a00 0x0 0x200>;
+		reg = <0x0 0xa003800 0x0 0x200>;
 		compatible = "virtio,mmio";
 	};
 

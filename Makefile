@@ -71,10 +71,12 @@ filesystem: copy-hvisor-bin dtb
 	sudo umount $(IMG_DIR)/fs || true
 	sudo mount $(FSIMG1) $(IMG_DIR)/fs && \
 	sudo mkdir -p $(IMG_DIR)/fs/hvisor && \
-	sudo cp $(FS_FILE_LIST) $(IMG_DIR)/fs/hvisor
+	sudo cp $(FS_FILE_LIST) $(IMG_DIR)/fs/hvisor;
+
 	sudo echo -e "cd hvisor\ninsmod $(notdir $(hvisor_ko))\n./hvisor zone start $(notdir $(zone1_config))" > start.sh.tmp && \
 		sudo chmod +x start.sh.tmp && \
-		sudo mv start.sh.tmp $(IMG_DIR)/fs/start.sh
+		sudo mv start.sh.tmp $(IMG_DIR)/fs/start.sh;
+
 	sudo umount $(IMG_DIR)/fs || true
 	rm -rf $(IMG_DIR)/fs
 

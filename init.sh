@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# Function to gracefully handle repository operations (clone or link existing)
 init_repository() {
     local repo_name="$1"
     local repo_url="$2"
     if [ -d "$repo_name" ]; then
-        # 使用绿色字体显示已存在目录的提示信息
         echo -e "\033[32mThe '$repo_name' directory already exists. Skipping clone operation.\033[0m"
     else
         read -p "Do you have an existing local '$repo_name' repository? (y/n) " choice
@@ -23,7 +21,6 @@ init_repository() {
                 ;;
         esac
     fi
-    # todo: next line???
     echo -e "\033[34mRepository initialization for '$repo_name' is finished.\033[0m"
 }
 
